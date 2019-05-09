@@ -26,12 +26,10 @@ final class BugCommand extends Command
     {
         $model = new Model();
         $model->name = 'hello';
+        
+        $container = $this->getContainer();
+        $serializer = $container->get('serializer');
 
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $encoder = new JsonEncoder();
-
-        $serializer = new Serializer([$normalizer], [$encoder]);
         $serializer->serialize($model, 'json');
 
         return 0;
